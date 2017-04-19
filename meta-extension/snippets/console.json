@@ -1,0 +1,9 @@
+{
+     "Print to console": {
+         "prefix": "log",
+         "body": [
+             "console.log('$1');"
+         ],
+         "description": "Log output to the VS Code console window."
+     }
+ }
