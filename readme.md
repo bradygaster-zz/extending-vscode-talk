@@ -50,14 +50,16 @@ When you're developing extensions you need to see what's happening in your devel
 
 1. Add this JSON to the `contributes` section of the `package.json` file to load the snippet when the extension is loaded
 
-        "contributes": {
-            "snippets": [
-                {
-                    "language": "javascript",
-                    "path": "./snippets/console.json"
-                }
-            ]
-        }
+    ```json
+    "contributes": {
+        "snippets": [
+            {
+                "language": "javascript",
+                "path": "./snippets/console.json"
+            }
+        ]
+    }
+    ```
 
 1. Debug the extension
 1. Open the **target-extension** target project in the debugging instance
@@ -72,12 +74,14 @@ The command palette gives customers a convenient way to execute commands contrib
 
 1. Note the `contributes` section and how there is a single command named `sayHello`
 
-        "commands": [
-                {
-                    "command": "extension.sayHello",
-                    "title": "Hello World"
-                }
-            ],
+    ```json
+    "commands": [
+            {
+                "command": "extension.sayHello",
+                "title": "Hello World"
+            }
+        ],
+    ```
 
 1. Note the handler for the `sayHello` command in `extension.js`
 
@@ -103,22 +107,28 @@ Commands are useful for componentizing and isolating parts of the functionality 
 
 1. Note the `activationEvents` section in `package.json`
 
-        "activationEvents": [
-            "onCommand:extension.sayHello"
-        ]
+    ```json
+    "activationEvents": [
+        "onCommand:extension.sayHello"
+    ]
+    ```
 
 1. With this setting the extension won't activate **until** the `sayHello` command is called, so it needs to be changed so that the extension activates right away. Optionally, we could just add the various commands that could activate the extension. 
 
-        "activationEvents": [
-            "*"
-        ],
+    ```json
+    "activationEvents": [
+        "*"
+    ],
+    ```
 
 1. Add a new command named `meta.slowProcess` to the `package.json` file
 
-        {
-            "command": "meta.slowProcess",
-            "title": "Run Slow Process"
-        }
+    ```json
+    {
+        "command": "meta.slowProcess",
+        "title": "Run Slow Process"
+    }
+    ```
 
 1. Create a new directory named `commands` in the project and add a file to it named `slowProcess.js`
 
@@ -126,20 +136,24 @@ Commands are useful for componentizing and isolating parts of the functionality 
 
     Then add the following code to the file to export a method to wire up the command handler to the VS Code context. 
 
-        var vscode = require('vscode');
+    ```javascript
+    var vscode = require('vscode');
 
-        module.exports = exports = function (context) {
-            var disposable = vscode.commands.registerCommand('meta.slowProcess', function () {
-                vscode.window.showInformationMessage('Starting the slow process...');
-            });
+    module.exports = exports = function (context) {
+        var disposable = vscode.commands.registerCommand('meta.slowProcess', function () {
+            vscode.window.showInformationMessage('Starting the slow process...');
+        });
 
-            context.subscriptions.push(disposable);
-        }
+        context.subscriptions.push(disposable);
+    }
+    ```
 
 1. In the `extension.js` file, wire up the command handler after the `sayHello` command has been registered. 
 
-        // wire up the other commands
-        slowProcess(context);
+    ```javascript
+    // wire up the other commands
+    slowProcess(context);
+    ```
 
 1. Debug the extension and use `Ctrl-Shift-P` or `Cmd-Shift-P` to run command titled `Run Slow Process`
 
@@ -151,23 +165,25 @@ Customers who use your extensions need to know what's happening so they typicall
 
 1. Replace the code in the `commands/slowProcess.js` file with this code
 
-        var vscode = require('vscode');
+    ```javascript
+    var vscode = require('vscode');
 
-        const outputChannelName = 'META';
+    const outputChannelName = 'META';
 
-        module.exports = exports = function (context) {
-            var disposable = vscode.commands.registerCommand('meta.slowProcess', function () {
-                var outputChannel = vscode.window.createOutputChannel(outputChannelName);
-                outputChannel.show(false);
-                outputChannel.appendLine('Starting the slow process...');
+    module.exports = exports = function (context) {
+        var disposable = vscode.commands.registerCommand('meta.slowProcess', function () {
+            var outputChannel = vscode.window.createOutputChannel(outputChannelName);
+            outputChannel.show(false);
+            outputChannel.appendLine('Starting the slow process...');
 
-                setTimeout(() => {
-                    outputChannel.appendLine('Process complete');
-                }, 3000);
-            });
+            setTimeout(() => {
+                outputChannel.appendLine('Process complete');
+            }, 3000);
+        });
 
-            context.subscriptions.push(disposable);
-        }
+        context.subscriptions.push(disposable);
+    }
+    ```
 
 1. Debug the extension and run the `slowProcess` command a few times. Once with the output window entirely closed, once with a different channel selected. Note how the `outputChannel.show()` method could be used to make for a less-intrusive experience when providing the user feedback. 
 
