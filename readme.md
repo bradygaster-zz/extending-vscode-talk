@@ -36,17 +36,17 @@ When you're developing extensions you need to see what's happening in your devel
 1. Open the `meta-extension` folder in VS Code
 1. Add the file `snippets/console.json` to the workspace with this JSON
 
-        ```json
-        {
-            "Print to console": {
-                "prefix": "log",
-                "body": [
-                    "console.log('$1');"
-                ],
-                "description": "Log output to the VS Code console window."
-            }
+    ```json
+    {
+        "Print to console": {
+            "prefix": "log",
+            "body": [
+                "console.log('$1');"
+            ],
+            "description": "Log output to the VS Code console window."
         }
-        ```
+    }
+    ```
 
 1. Add this JSON to the `contributes` section of the `package.json` file to load the snippet when the extension is loaded
 
@@ -81,14 +81,14 @@ The command palette gives customers a convenient way to execute commands contrib
 
 1. Note the handler for the `sayHello` command in `extension.js`
 
-        ```javascript
-        var disposable = vscode.commands.registerCommand('extension.sayHello', function () {
-            // The code you place here will be executed every time your command is executed
+    ```javascript
+    var disposable = vscode.commands.registerCommand('extension.sayHello', function () {
+        // The code you place here will be executed every time your command is executed
 
-            // Display a message box to the user
-            vscode.window.showInformationMessage('Hello World!');
-        });
-        ```
+        // Display a message box to the user
+        vscode.window.showInformationMessage('Hello World!');
+    });
+    ```
 
 1. Put a breakpoint on the handler and run the extension
 1. Use `Ctrl-Shift-P` or `Cmd-Shift-P` to open the command palette
