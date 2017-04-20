@@ -188,3 +188,55 @@ Customers who use your extensions need to know what's happening so they typicall
 1. Debug the extension and run the `slowProcess` command a few times. Once with the output window entirely closed, once with a different channel selected. Note how the `outputChannel.show()` method could be used to make for a less-intrusive experience when providing the user feedback. 
 
 --- 
+
+### Demo 5 - Adding buttons to the toolbar
+
+Once commands are working in an extension a good way to trigger them is with a button in the toolbar. 
+
+1. Show the list of icons in the [octicon](https://octicons.github.com/). Point out this icon library ships with VS Code and the icon names are used to specify which button icon should be shown.
+
+1. Create a new file `utils\toolbar.js` in the workspace and add this code to it. This will componentize the toolbar so it can be used throughout the extension's codebase. 
+
+    ```javascript
+    var vscode = require('vscode');
+
+    module.exports = {
+        addButton: function (command, text, tooltip) {
+            var customStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
+            customStatusBarItem.color = 'white';
+            customStatusBarItem.command = command;
+            customStatusBarItem.text = text;
+            customStatusBarItem.tooltip = tooltip;
+            customStatusBarItem.show();
+        }
+    }
+    ```
+
+1. A command should be able to add itself to the toolbar rather than be centralized, so the `toolbar` will be referenced from the `slowProcess.js`. 
+
+    ```javascript
+    var toolbar = require('../utils/toolbar.js');
+    ```
+
+1. The command name needs to be passed to the `addButton` method, so it can be extracted to a variable. This updated code for `slowProcess.js` is below.
+
+    ```javascript
+    module.exports = exports = function (context) {
+        var commandName = 'meta.slowProcess';
+        var disposable = vscode.commands.registerCommand(commandName, function () {
+            var outputChannel = vscode.window.createOutputChannel(outputChannelName);
+            outputChannel.show(false);
+            outputChannel.appendLine('Starting the slow process...');
+
+            setTimeout(() => {
+                outputChannel.appendLine('Process complete');
+            }, 3000);
+        });
+
+        context.subscriptions.push(disposable);
+        
+        toolbar.addButton(commandName, '$(bug)', 'Submit a bug');
+    }
+    ```
+
+1. Debug the extension and show how the button is present and how clicking it causes the `slowProcess` command to fire. 
