@@ -26,8 +26,6 @@ The demo story will demonstrate how to build an extension to make it easy for ot
 
 > **Action Item**: Create a new extension using the Yeoman scaffolder named **target-extension** before continuing with the demos. Open it up whenever debugging the extension as it is built throughout the demos.
 
----
-
 ## Snippets
 
 ### Demo 1 - Create a logging snippet
@@ -67,8 +65,6 @@ When you're developing extensions you need to see what's happening in your devel
 6. Open the **target-extension** target project in the debugging instance
 7. Use the two snippets to extend the **target-extension** project
 8. Debug the **target-extension** to show the message appearing in the development instance
-
---- 
 
 ## Commands
 
@@ -160,8 +156,6 @@ slowProcess(context);
 ```
 
 6. Debug the extension and use `Ctrl-Shift-P` or `Cmd-Shift-P` to run command titled `Run Slow Process`
-
----
 
 ## User Experience
 
@@ -342,3 +336,11 @@ module.exports = exports = function (context) {
     toolbar.addButton(commandName, '$(bug)', 'Submit a bug');
 }
 ```
+
+2. Run the demo and show how data can be collected and used in the extension's logic flow. 
+
+## Editor interaction
+
+The text in the active editor document can be used as an object that you can parse and decorate. Colorizers, decorators, and code lens providers are a few of the various ways you can use the text editor in creative ways. 
+
+1. 

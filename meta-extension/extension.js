@@ -1,8 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 var vscode = require('vscode');
-
 var slowProcess = require('./commands/slowProcess.js');
+var decoration = require('./utils/decoration.js');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -26,6 +26,10 @@ function activate(context) {
 
     // wire up the other commands
     slowProcess(context);
+
+    // decorate the important words in the doc
+    var searchTerms = ['Slovenia', 'NTK', 'Microsoft'];
+    decoration.activate(context, searchTerms);
 }
 exports.activate = activate;
 
