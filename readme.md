@@ -343,4 +343,95 @@ module.exports = exports = function (context) {
 
 The text in the active editor document can be used as an object that you can parse and decorate. Colorizers, decorators, and code lens providers are a few of the various ways you can use the text editor in creative ways. 
 
-1. 
+1. Add a new file to the workspace named `utils\decoration.js` and insert the following code into it. The `createTextEditorDecorationType` creates a decoration object representing how the specified text should appear in the editor. 
+
+```javascript
+var vscode = require('vscode');
+
+exports.activate = (context, searchTerms) => {
+    var termDecorationType = vscode.window.createTextEditorDecorationType({
+        borderWidth: '1px',
+        borderSpacing: '2px',
+        borderStyle: 'solid',
+        backgroundColor: '#2572E5',
+        color: 'white',
+        cursor: 'pointer'
+    });
+}
+```
+
+2. Add this code to the `utils\decoration.js` file's `activate` method to provide a method to update the active editor's text's display with a decoration, and another method that can be used within event handlers later to update when users type or open new documents. 
+
+```javascript
+var timeout = null;
+var activeEditor = vscode.window.activeTextEditor;
+
+function triggerUpdateDecorations() {
+    if (timeout) {
+        clearTimeout(timeout);
+    }
+    timeout = setTimeout(updateDecorations, 500);
+}
+
+function updateDecorations() {
+    if (!activeEditor) {
+        return;
+    }
+
+    var documentText = activeEditor.document.getText();
+    var regExpFromArray = new RegExp(searchTerms.join('|'), 'gi');
+    var matchedStrings = [];
+    var match;
+
+    while (match = regExpFromArray.exec(documentText)) {
+        const startPos = activeEditor.document.positionAt(match.index);
+        const endPos = activeEditor.document.positionAt(match.index + match[0].length);
+        const decoration = {
+            range: new vscode.Range(startPos, endPos),
+            color: '#FFFFFF'
+        };
+        matchedStrings.push(decoration);
+    }
+
+    activeEditor.setDecorations(termDecorationType, matchedStrings);
+}
+
+if (activeEditor) {
+    triggerUpdateDecorations();
+}
+```
+
+3. Next, add handlers for the editor window's `onDidChangeActiveTextEditor` and `onDidChangeTextDocument` events, during which the document's decorations will ne updated. 
+
+```javascript
+vscode.window.onDidChangeActiveTextEditor(editor => {
+    activeEditor = editor;
+    if (editor) {
+        triggerUpdateDecorations();
+    }
+}, null, context.subscriptions);
+
+vscode.workspace.onDidChangeTextDocument(event => {
+    if (activeEditor && event.document === activeEditor.document) {
+        triggerUpdateDecorations();
+    }
+}, null, context.subscriptions);
+```
+
+4. The last step in getting the decorations lit up is to wire it up in the `extension.js` file. First, pull in the `decoration.js` functionality:
+
+```javascript
+var decoration = require('./utils/decoration.js');
+```
+
+5. Then, call the `decoration.activate` method in the `extension.activate` method so that the extension begins watching the editor for document changes or edits. 
+
+```javascript
+// decorate the important words in the doc
+var searchTerms = ['Slovenia', 'NTK', 'Microsoft'];
+decoration.activate(context, searchTerms);
+```
+
+6. Once these changes are made, debug the extension. During the debugging session, create a new text file and enter a phrase like "NTK Slovenia is a great Microsoft conference" and note how the desired words are decorated. 
+
+## Publishing extensions to the Visual Studio Marketplace

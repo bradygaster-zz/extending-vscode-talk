@@ -1,9 +1,7 @@
 var vscode = require('vscode');
 
 exports.activate = (context, searchTerms) => {
-    var activeEditor = vscode.window.activeTextEditor;
-    var timeout = null;
-
+    
     var termDecorationType = vscode.window.createTextEditorDecorationType({
         borderWidth: '1px',
         borderSpacing: '2px',
@@ -13,23 +11,9 @@ exports.activate = (context, searchTerms) => {
         cursor: 'pointer'
     });
 
-    if (activeEditor) {
-        triggerUpdateDecorations();
-    }
-
-    vscode.window.onDidChangeActiveTextEditor(editor => {
-        activeEditor = editor;
-        if (editor) {
-            triggerUpdateDecorations();
-        }
-    }, null, context.subscriptions);
-
-    vscode.workspace.onDidChangeTextDocument(event => {
-        if (activeEditor && event.document === activeEditor.document) {
-            triggerUpdateDecorations();
-        }
-    }, null, context.subscriptions);
-
+    var activeEditor = vscode.window.activeTextEditor;
+    var timeout = null;
+    
     function triggerUpdateDecorations() {
         if (timeout) {
             clearTimeout(timeout);
@@ -59,4 +43,21 @@ exports.activate = (context, searchTerms) => {
 
         activeEditor.setDecorations(termDecorationType, matchedStrings);
     }
+
+    if (activeEditor) {
+        triggerUpdateDecorations();
+    }
+
+    vscode.window.onDidChangeActiveTextEditor(editor => {
+        activeEditor = editor;
+        if (editor) {
+            triggerUpdateDecorations();
+        }
+    }, null, context.subscriptions);
+
+    vscode.workspace.onDidChangeTextDocument(event => {
+        if (activeEditor && event.document === activeEditor.document) {
+            triggerUpdateDecorations();
+        }
+    }, null, context.subscriptions);
 };
