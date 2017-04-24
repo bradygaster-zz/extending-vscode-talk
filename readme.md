@@ -285,7 +285,7 @@ module.exports = exports = function (context) {
 2. The `showQuickPick` method is called, by passing an array of strings as a parameter. 
 3. Once the user makes a selection (or hits ESC), the method passed to `then` is called. 
 
-### Collection, confirmation, and error dialogs
+### Demo 7 - Collection, confirmation, and error dialogs
 
 Data can be collected from the user, and dialogs to inform the user of events or of error states can be shown. 
 
@@ -340,6 +340,8 @@ module.exports = exports = function (context) {
 2. Run the demo and show how data can be collected and used in the extension's logic flow. 
 
 ## Editor interaction
+
+### Demo 8 - Text decorations
 
 The text in the active editor document can be used as an object that you can parse and decorate. Colorizers, decorators, and code lens providers are a few of the various ways you can use the text editor in creative ways. 
 
