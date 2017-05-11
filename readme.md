@@ -8,7 +8,13 @@ VS Code supports custom colorization, snippets, commands, and more through a fle
 
 In this talk you'll learn some basics about writing extensions for VS Code, how to publish those extensions into the [Visual Studio Marketplace](https://marketplace.visualstudio.com/VSCode), and get some resources and guidance on considerations for extension development. 
 
-## Getting Started 
+## Session Goals and Setup
+
+The target audience for the talk is VS Code users at an intermediate level with experience in TypeScript or JavaScript. There is an accompanying PowerPoint presentation in the session's repository
+
+**No previous VS Code or Visual Studio extension development is required**. By all meausre this is a **general 200-level** session, or a **100-level session** for those who have extended IDEs in the past. You wouldn't want to attend if you've already developed an arsenal of VS Code extension development experience, but if you're new to it you're in the right spot. 
+
+The demo story will be the creation of a simple extension that performs some simple tricks, but that encorporates numerous facets of VS Code extension development in a continuous experience. 
 
 ### Prerequisites
 
@@ -18,13 +24,13 @@ In this talk you'll learn some basics about writing extensions for VS Code, how 
 4. [Yeoman VS Code Generator](https://www.npmjs.com/package/generator-code) - scaffolds extension project structure
 5. [Visual Studio Code Extension Manager](https://www.npmjs.com/package/vsce) (VSCE) - for publishing to the marketplace
 
-## Demo Setup
+### Session Setup
 
-This talk is about extension development, so the target audience for the talk is extension developers. 
+1. Set up an account in the Marketplace. 
+2. Create a bookmark to your Marketplace account at  [https://marketplace.visualstudio.com/manage/publishers/{your-publisher}](https://marketplace.visualstudio.com/manage/publishers/{your-publisher})
+3. Create a new extension using the Yeoman scaffolder named **target-extension** before continuing with the demos. Open it up whenever debugging the extension as it is built throughout the demos.
 
-The demo story will demonstrate how to build an extension to make it easy for other extension authors. In fact, the talk will be done using an extension built in order to streamline the demonstrations in the talk. 
-
-> **Action Item**: Create a new extension using the Yeoman scaffolder named **target-extension** before continuing with the demos. Open it up whenever debugging the extension as it is built throughout the demos.
+---
 
 ## Snippets
 
@@ -437,3 +443,32 @@ decoration.activate(context, searchTerms);
 6. Once these changes are made, debug the extension. During the debugging session, create a new text file and enter a phrase like "NTK Slovenia is a great Microsoft conference" and note how the desired words are decorated. 
 
 ## Publishing extensions to the Visual Studio Marketplace
+
+Publishing extensions, and updating them, is as easy as running the VSCE command included with the [Visual Studio Code Extension Manager](https://www.npmjs.com/package/vsce) npm package. 
+
+### Packaging extensions using vsce
+
+1. Hit **Ctrl-\`** to open the integrated terminal window. 
+
+1. Check the `version` property in the extension folder's `package.json` file to make sure the version is desirable. 
+
+1. Enter the command `vsce package` in the root of the extension project's workspace. Note that a file with the filename format `{extension-name}-{version}.vsix` will be created. 
+
+    > Note: If you haven't customized the README.md file in the extension root you'll see an error message. The README.md file will be used to inform your potential users what value your extension offers them, so take time to customize it. 
+
+### Publishing extensions to the marketplace
+
+1. Login to the marketplace using your Microsoft account. The URL format should be `https://marketplace.visualstudio.com/manage/publishers/{your-publisher-name}`
+
+1. Show the slides on publishing an extension (or updating it to a new version) in the PowerPoint deck in this repository, then walk through the process with the extension you build during the session. 
+
+    > Note: If you chose a name for your demo extension that's unavailable, rename it in the `package.json` file, re-tun `vsce package`, and re-publish it. 
+
+### Installing your extension 
+
+1. Open the **Extensions** palette in VS Code.
+1. Search for the name of your extension. 
+
+    > Note how the `changelog.md` file is reflected on the `CHANGELOG` tab in the **Extensions** palette. Point out that **every version update should have an entry** and stress that potential customers will use this to determine how confident they are that you'll keep them informed. 
+
+1. Install it!

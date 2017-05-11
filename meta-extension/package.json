@@ -1,6 +1,6 @@
 {
-    "name": "meta-extension",
-    "displayName": "meta-extension",
+    "name": "extending-vs-code-session",
+    "displayName": "Session Demo for Extending Visual Studio Code",
     "description": "",
     "version": "0.0.1",
     "publisher": "bradygaster",
