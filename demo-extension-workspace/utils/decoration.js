@@ -1,7 +1,6 @@
 var vscode = require('vscode');
 
 exports.activate = (context, searchTerms) => {
-    
     var termDecorationType = vscode.window.createTextEditorDecorationType({
         borderWidth: '1px',
         borderSpacing: '2px',
@@ -11,9 +10,9 @@ exports.activate = (context, searchTerms) => {
         cursor: 'pointer'
     });
 
-    var activeEditor = vscode.window.activeTextEditor;
     var timeout = null;
-    
+    var activeEditor = vscode.window.activeTextEditor;
+
     function triggerUpdateDecorations() {
         if (timeout) {
             clearTimeout(timeout);
@@ -60,4 +59,4 @@ exports.activate = (context, searchTerms) => {
             triggerUpdateDecorations();
         }
     }, null, context.subscriptions);
-};
+}

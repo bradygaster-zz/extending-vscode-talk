@@ -28,7 +28,17 @@ The demo story will be the creation of a simple extension that performs some sim
 
 1. Set up an account in the Marketplace. 
 2. Create a bookmark to your Marketplace account at  [https://marketplace.visualstudio.com/manage/publishers/{your-publisher}](https://marketplace.visualstudio.com/manage/publishers/{your-publisher})
-3. Create a new extension using the Yeoman scaffolder named **target-extension** before continuing with the demos. Open it up whenever debugging the extension as it is built throughout the demos.
+3. Create a new extension using the Yeoman scaffolder named **target-workspace** before continuing with the demos. Open it up whenever debugging the extension as it is built throughout the demos.
+4. Clone this repository.
+
+(Optional setup if you truly want a fresh start)
+
+5. Create a local branch to practice in, but keeping the master branch in case you bone something up.
+    ```
+    git branch practice01
+    git checkout practice01
+    ```
+6. Delete the `demo-extension-workspace` and `target-workspace`
 
 ---
 
@@ -38,8 +48,8 @@ The demo story will be the creation of a simple extension that performs some sim
 
 When you're developing extensions you need to see what's happening in your development instance of VS Code. Let's make a snippet that makes it easy to insert the `console.log` call, since we'll use it a lot during extension debugging. 
 
-1. Create a new empty JS extension named `meta-extension`
-2. Open the `meta-extension` folder in VS Code
+1. Create a new empty JS extension named `demo-extension-workspace`
+2. Open the `demo-extension-workspace` folder in VS Code
 3. Add the file `snippets/console.json` to the workspace with this JSON
 
 ```json
@@ -68,9 +78,9 @@ When you're developing extensions you need to see what's happening in your devel
 ```
 
 5. Debug the extension
-6. Open the **target-extension** target project in the debugging instance
-7. Use the two snippets to extend the **target-extension** project
-8. Debug the **target-extension** to show the message appearing in the development instance
+6. Open the **target-workspace** target project in the debugging instance
+7. Use the two snippets to extend the **target-workspace** project
+8. Debug the **target-workspace** to show the message appearing in the development instance
 
 ## Commands
 
@@ -157,7 +167,7 @@ module.exports = exports = function (context) {
 5. In the `extension.js` file, wire up the command handler after the `sayHello` command has been registered. 
 
 ```javascript
-// wire up the other commands
+var slowProcess = require('./commands/slowProcess.js');
 slowProcess(context);
 ```
 

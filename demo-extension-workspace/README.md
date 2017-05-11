@@ -1,6 +1,6 @@
-# target-extension README
+# demo-extension-workspace README
 
-This is the README for your extension "target-extension". After writing up a brief description, we recommend including the following sections.
+I edited this.
 
 ## Features
 

@@ -1,7 +1,7 @@
 {
-    "name": "target-extension",
-    "displayName": "target-extension",
-    "description": "",
+    "name": "target-workspace",
+    "displayName": "target-workspace",
+    "description": "the target workspace",
     "version": "0.0.1",
     "publisher": "bradygaster",
     "engines": {
