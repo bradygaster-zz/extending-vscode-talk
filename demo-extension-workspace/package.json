@@ -1,7 +1,7 @@
 {
-    "name": "extending-vs-code-session",
-    "displayName": "Session Demo for Extending Visual Studio Code",
-    "description": "",
+    "name": "demo-extension-workspace",
+    "displayName": "demo-extension-workspace",
+    "description": "Demo Code for Extending Visual Studio Code Session",
     "version": "0.0.1",
     "publisher": "bradygaster",
     "engines": {
