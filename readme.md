@@ -42,7 +42,7 @@ The demo story will be the creation of a simple extension that performs some sim
 
 ---
 
-## Snippets
+## Agenda
 
 ### Demo 1 - Create a logging snippet
 
@@ -146,7 +146,7 @@ Commands are useful for componentizing and isolating parts of the functionality 
 }
 ```
 
-4. Create a new directory named `commands` in the project and add a file to it named `slowProcess.js`
+4. Create a new directory named `commands` in the project and add a file to it named `commands\slowProcess.js`
 
     > Rather than register all the command handlers manually in the `extension.js` file, the command handler logic can be separated into multiple files. 
 

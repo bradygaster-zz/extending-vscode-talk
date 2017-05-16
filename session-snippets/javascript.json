@@ -1,0 +1,274 @@
+{
+    "demo03.4": {
+        "prefix": "demo03.4",
+        "body": [
+            "var vscode = require('vscode');",
+            "",
+            "module.exports = exports = function (context) {",
+            "    var disposable = vscode.commands.registerCommand('meta.slowProcess', function () {",
+            "        vscode.window.showInformationMessage('Starting the slow process...');",
+            "    });",
+            "",
+            "    context.subscriptions.push(disposable);",
+            "}"
+        ],
+        "description": "Adds the wire-up to the slowProcess file"
+    },
+    "demo03.5": {
+        "prefix": "demo03.5",
+        "body": [
+            "var slowProcess = require('./commands/slowProcess.js');",
+            "slowProcess(context);"
+        ],
+        "description": "Wire up slowProcess in extension.js"
+    },
+    "demo04.1": {
+        "prefix": "demo04.1",
+        "body": [
+            "var vscode = require('vscode');",
+            "",
+            "const outputChannelName = 'META';",
+            "",
+            "module.exports = exports = function (context) {",
+            "    var disposable = vscode.commands.registerCommand('meta.slowProcess', function () {",
+            "        var outputChannel = vscode.window.createOutputChannel(outputChannelName);",
+            "        outputChannel.show(false);",
+            "        outputChannel.appendLine('Starting the slow process...');",
+            "",
+            "        setTimeout(() => {",
+            "            outputChannel.appendLine('Process complete');",
+            "        }, 3000);",
+            "    });",
+            "",
+            "    context.subscriptions.push(disposable);",
+            "}"
+        ],
+        "description": "Basic slowProcess code to show wire-up"
+    },
+    "demo05.1": {
+        "prefix": "demo05.1",
+        "body": [
+            "var vscode = require('vscode');",
+            "",
+            "module.exports = {",
+            "    addButton: function (command, text, tooltip) {",
+            "        var customStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);",
+            "        customStatusBarItem.color = 'white';",
+            "        customStatusBarItem.command = command;",
+            "        customStatusBarItem.text = text;",
+            "        customStatusBarItem.tooltip = tooltip;",
+            "        customStatusBarItem.show();",
+            "    }",
+            "}"
+        ],
+        "description": "Create the toolbar"
+    },
+    "demo05.2": {
+        "prefix": "demo05.2",
+        "body": [
+            "var toolbar = require('../utils/toolbar.js');"
+        ],
+        "description": "Slow Process command requires toolbar"
+    },
+    "demo05.3": {
+        "prefix": "demo05.3",
+        "body": [
+            "module.exports = exports = function (context) {",
+            "    var commandName = 'meta.slowProcess';",
+            "    var disposable = vscode.commands.registerCommand(commandName, function () {",
+            "        var outputChannel = vscode.window.createOutputChannel(outputChannelName);",
+            "        outputChannel.show(false);",
+            "        outputChannel.appendLine('Starting the slow process...');",
+            "",
+            "        setTimeout(() => {",
+            "            outputChannel.appendLine('Process complete');",
+            "        }, 3000);",
+            "    });",
+            "",
+            "    context.subscriptions.push(disposable);",
+            "    ",
+            "    toolbar.addButton(commandName, '$(bug)', 'Submit a bug');",
+            "}"
+        ],
+        "description": "Add a button to the toolbar"
+    },
+    "demo06.1": {
+        "prefix": "demo06.1",
+        "body": [
+            "var vscode = require('vscode');",
+            "var toolbar = require('../utils/toolbar.js');",
+            "",
+            "const outputChannelName = 'META';",
+            "const startConfirmYes = 'Yes, start the process';",
+            "const startConfirmNo = 'Actually, nevermind';",
+            "",
+            "module.exports = exports = function (context) {",
+            "    var commandName = 'meta.slowProcess';",
+            "    var disposable = vscode.commands.registerCommand(commandName, function () {",
+            "",
+            "        vscode.window",
+            "            .showQuickPick([startConfirmYes, startConfirmNo])",
+            "            .then((selected) => {",
+            "                if (selected == startConfirmYes) {",
+            "                    var outputChannel = vscode.window.createOutputChannel(outputChannelName);",
+            "                    outputChannel.show(false);",
+            "                    outputChannel.appendLine('Starting the slow process...');",
+            "",
+            "                    setTimeout(() => {",
+            "                        outputChannel.appendLine('Process complete');",
+            "                    }, 3000);",
+            "                }",
+            "            });",
+            "    });",
+            "",
+            "    context.subscriptions.push(disposable);",
+            "",
+            "    toolbar.addButton(commandName, '$(bug)', 'Submit a bug');",
+            "}"
+        ],
+        "description": "Gives the user a few options using a pick list"
+    },
+    "demo07.1": {
+        "prefix": "demo07.1",
+        "body": [
+            "var vscode = require('vscode');",
+            "var toolbar = require('../utils/toolbar.js');",
+            "",
+            "const outputChannelName = 'META';",
+            "const startConfirmYes = 'Yes, start the process';",
+            "const startConfirmNo = 'Actually, nevermind';",
+            "const password = 'secret';",
+            "",
+            "module.exports = exports = function (context) {",
+            "    var commandName = 'meta.slowProcess';",
+            "    var disposable = vscode.commands.registerCommand(commandName, function () {",
+            "",
+            "        vscode.window",
+            "            .showInputBox({",
+            "                password: true,",
+            "                prompt: 'Enter the password'",
+            "            })",
+            "            .then((value) => {",
+            "                if (value == password) {",
+            "                    vscode.window",
+            "                        .showQuickPick([startConfirmYes, startConfirmNo])",
+            "                        .then((selected) => {",
+            "                            if (selected == startConfirmYes) {",
+            "                                var outputChannel = vscode.window.createOutputChannel(outputChannelName);",
+            "                                outputChannel.show(false);",
+            "                                outputChannel.appendLine('Starting the slow process...');",
+            "",
+            "                                setTimeout(() => {",
+            "                                    vscode.window.showInformationMessage('Process complete!')",
+            "                                }, 3000);",
+            "                            }",
+            "                        });",
+            "                }",
+            "                else {",
+            "                    vscode.window.showErrorMessage('Incorrect password');",
+            "                }",
+            "            });",
+            "    });",
+            "",
+            "    context.subscriptions.push(disposable);",
+            "",
+            "    toolbar.addButton(commandName, '$(bug)', 'Submit a bug');",
+            "}"
+        ],
+        "description": "Add text collection to the UX"
+    },
+    "demo08.1": {
+        "prefix": "demo08.1",
+        "body": [
+            "var vscode = require('vscode');",
+            "",
+            "exports.activate = (context, searchTerms) => {",
+            "    var termDecorationType = vscode.window.createTextEditorDecorationType({",
+            "        borderWidth: '1px',",
+            "        borderSpacing: '2px',",
+            "        borderStyle: 'solid',",
+            "        backgroundColor: '#2572E5',",
+            "        color: 'white',",
+            "        cursor: 'pointer'",
+            "    });",
+            "}"
+        ],
+        "description": "Create the decoration style"
+    },
+    "demo08.2": {
+        "prefix": "demo08.2",
+        "body": [
+            "var timeout = null;",
+            "var activeEditor = vscode.window.activeTextEditor;",
+            "",
+            "function triggerUpdateDecorations() {",
+            "    if (timeout) {",
+            "        clearTimeout(timeout);",
+            "    }",
+            "    timeout = setTimeout(updateDecorations, 500);",
+            "}",
+            "",
+            "function updateDecorations() {",
+            "    if (!activeEditor) {",
+            "        return;",
+            "    }",
+            "",
+            "    var documentText = activeEditor.document.getText();",
+            "    var regExpFromArray = new RegExp(searchTerms.join('|'), 'gi');",
+            "    var matchedStrings = [];",
+            "    var match;",
+            "",
+            "    while (match = regExpFromArray.exec(documentText)) {",
+            "        const startPos = activeEditor.document.positionAt(match.index);",
+            "        const endPos = activeEditor.document.positionAt(match.index + match[0].length);",
+            "        const decoration = {",
+            "            range: new vscode.Range(startPos, endPos),",
+            "            color: '#FFFFFF'",
+            "        };",
+            "        matchedStrings.push(decoration);",
+            "    }",
+            "",
+            "    activeEditor.setDecorations(termDecorationType, matchedStrings);",
+            "}",
+            "",
+            "if (activeEditor) {",
+            "    triggerUpdateDecorations();",
+            "}"
+        ],
+        "description": "Wire up the decoration"
+    },
+    "demo08.3": {
+        "prefix": "demo08.3",
+        "body": [
+            "vscode.window.onDidChangeActiveTextEditor(editor => {",
+            "    activeEditor = editor;",
+            "    if (editor) {",
+            "        triggerUpdateDecorations();",
+            "    }",
+            "}, null, context.subscriptions);",
+            "",
+            "vscode.workspace.onDidChangeTextDocument(event => {",
+            "    if (activeEditor && event.document === activeEditor.document) {",
+            "        triggerUpdateDecorations();",
+            "    }",
+            "}, null, context.subscriptions);"
+        ],
+        "description": "Event handlers for the decorative events"
+    },
+    "demo08.4": {
+        "prefix": "demo08.4",
+        "body": [
+            "var decoration = require('./utils/decoration.js');"
+        ],
+        "description": "Extension.js requires decoration.js"
+    },
+    "demo08.5": {
+        "prefix": "demo08.5",
+        "body": [
+            "// decorate the important words in the doc",
+            "var searchTerms = ['Slovenia', 'NTK', 'Microsoft'];",
+            "decoration.activate(context, searchTerms);"
+        ],
+        "description": "Adds in the search terms to be highlighted"
+    }
+}
