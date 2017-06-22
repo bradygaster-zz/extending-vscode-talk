@@ -1,12 +1,13 @@
 {
-    "demo03.4": {
-        "prefix": "demo03.4",
+    "demo3": {
+        "prefix": "demo3",
         "body": [
             "var vscode = require('vscode');",
             "",
             "module.exports = exports = function (context) {",
             "    var disposable = vscode.commands.registerCommand('meta.slowProcess', function () {",
             "        vscode.window.showInformationMessage('Starting the slow process...');",
+            "        // demo 6: run a long process and tell the user what's happening",
             "    });",
             "",
             "    context.subscriptions.push(disposable);",
@@ -14,23 +15,17 @@
         ],
         "description": "Adds the wire-up to the slowProcess file"
     },
-    "demo03.5": {
-        "prefix": "demo03.5",
+    "demo5": {
+        "prefix": "demo5",
         "body": [
             "var slowProcess = require('./commands/slowProcess.js');",
             "slowProcess(context);"
         ],
         "description": "Wire up slowProcess in extension.js"
     },
-    "demo04.1": {
-        "prefix": "demo04.1",
+    "demo6": {
+        "prefix": "demo6",
         "body": [
-            "var vscode = require('vscode');",
-            "",
-            "const outputChannelName = 'META';",
-            "",
-            "module.exports = exports = function (context) {",
-            "    var disposable = vscode.commands.registerCommand('meta.slowProcess', function () {",
             "        var outputChannel = vscode.window.createOutputChannel(outputChannelName);",
             "        outputChannel.show(false);",
             "        outputChannel.appendLine('Starting the slow process...');",
@@ -38,15 +33,12 @@
             "        setTimeout(() => {",
             "            outputChannel.appendLine('Process complete');",
             "        }, 3000);",
-            "    });",
-            "",
-            "    context.subscriptions.push(disposable);",
-            "}"
+            "        // demo9: add a button to the vs code toolbar "
         ],
         "description": "Basic slowProcess code to show wire-up"
     },
-    "demo05.1": {
-        "prefix": "demo05.1",
+    "demo7": {
+        "prefix": "demo7",
         "body": [
             "var vscode = require('vscode');",
             "",
@@ -63,73 +55,22 @@
         ],
         "description": "Create the toolbar"
     },
-    "demo05.2": {
-        "prefix": "demo05.2",
+    "demo8": {
+        "prefix": "demo8",
         "body": [
             "var toolbar = require('../utils/toolbar.js');"
         ],
         "description": "Slow Process command requires toolbar"
     },
-    "demo05.3": {
-        "prefix": "demo05.3",
+    "demo9": {
+        "prefix": "demo9",
         "body": [
-            "module.exports = exports = function (context) {",
-            "    var commandName = 'meta.slowProcess';",
-            "    var disposable = vscode.commands.registerCommand(commandName, function () {",
-            "        var outputChannel = vscode.window.createOutputChannel(outputChannelName);",
-            "        outputChannel.show(false);",
-            "        outputChannel.appendLine('Starting the slow process...');",
-            "",
-            "        setTimeout(() => {",
-            "            outputChannel.appendLine('Process complete');",
-            "        }, 3000);",
-            "    });",
-            "",
-            "    context.subscriptions.push(disposable);",
-            "    ",
-            "    toolbar.addButton(commandName, '$(bug)', 'Submit a bug');",
-            "}"
+            "    toolbar.addButton(commandName, '$(bug)', 'Submit a bug');"
         ],
         "description": "Add a button to the toolbar"
     },
-    "demo06.1": {
-        "prefix": "demo06.1",
-        "body": [
-            "var vscode = require('vscode');",
-            "var toolbar = require('../utils/toolbar.js');",
-            "",
-            "const outputChannelName = 'META';",
-            "const startConfirmYes = 'Yes, start the process';",
-            "const startConfirmNo = 'Actually, nevermind';",
-            "",
-            "module.exports = exports = function (context) {",
-            "    var commandName = 'meta.slowProcess';",
-            "    var disposable = vscode.commands.registerCommand(commandName, function () {",
-            "",
-            "        vscode.window",
-            "            .showQuickPick([startConfirmYes, startConfirmNo])",
-            "            .then((selected) => {",
-            "                if (selected == startConfirmYes) {",
-            "                    var outputChannel = vscode.window.createOutputChannel(outputChannelName);",
-            "                    outputChannel.show(false);",
-            "                    outputChannel.appendLine('Starting the slow process...');",
-            "",
-            "                    setTimeout(() => {",
-            "                        outputChannel.appendLine('Process complete');",
-            "                    }, 3000);",
-            "                }",
-            "            });",
-            "    });",
-            "",
-            "    context.subscriptions.push(disposable);",
-            "",
-            "    toolbar.addButton(commandName, '$(bug)', 'Submit a bug');",
-            "}"
-        ],
-        "description": "Gives the user a few options using a pick list"
-    },
-    "demo07.1": {
-        "prefix": "demo07.1",
+    "demo10": {
+        "prefix": "demo10",
         "body": [
             "var vscode = require('vscode');",
             "var toolbar = require('../utils/toolbar.js');",
@@ -177,8 +118,8 @@
         ],
         "description": "Add text collection to the UX"
     },
-    "demo08.1": {
-        "prefix": "demo08.1",
+    "demo11": {
+        "prefix": "demo11",
         "body": [
             "var vscode = require('vscode');",
             "",
@@ -191,13 +132,7 @@
             "        color: 'white',",
             "        cursor: 'pointer'",
             "    });",
-            "}"
-        ],
-        "description": "Create the decoration style"
-    },
-    "demo08.2": {
-        "prefix": "demo08.2",
-        "body": [
+            "}",
             "var timeout = null;",
             "var activeEditor = vscode.window.activeTextEditor;",
             "",
@@ -233,13 +168,8 @@
             "",
             "if (activeEditor) {",
             "    triggerUpdateDecorations();",
-            "}"
-        ],
-        "description": "Wire up the decoration"
-    },
-    "demo08.3": {
-        "prefix": "demo08.3",
-        "body": [
+            "}",
+            "",
             "vscode.window.onDidChangeActiveTextEditor(editor => {",
             "    activeEditor = editor;",
             "    if (editor) {",
@@ -253,20 +183,20 @@
             "    }",
             "}, null, context.subscriptions);"
         ],
-        "description": "Event handlers for the decorative events"
+        "description": "Create the decoration style"
     },
-    "demo08.4": {
-        "prefix": "demo08.4",
+    "demo12": {
+        "prefix": "demo12",
         "body": [
             "var decoration = require('./utils/decoration.js');"
         ],
         "description": "Extension.js requires decoration.js"
     },
-    "demo08.5": {
-        "prefix": "demo08.5",
+    "demo13": {
+        "prefix": "demo13",
         "body": [
             "// decorate the important words in the doc",
-            "var searchTerms = ['Slovenia', 'NTK', 'Microsoft'];",
+            "var searchTerms = ['VS Code', 'extensions', 'Microsoft'];",
             "decoration.activate(context, searchTerms);"
         ],
         "description": "Adds in the search terms to be highlighted"

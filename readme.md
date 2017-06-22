@@ -55,7 +55,7 @@ When you're developing extensions you need to see what's happening in your devel
 ```json
 {
     "Print to console": {
-        "prefix": "log",
+        "prefix": "logToConsole",
         "body": [
             "console.log('$1');"
         ],

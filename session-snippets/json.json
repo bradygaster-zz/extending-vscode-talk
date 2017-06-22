@@ -1,10 +1,10 @@
 {
-	"demo01.1": {
-		"prefix": "demo01.1",
+	"demo1": {
+		"prefix": "demo1",
 		"body": [
 			"{",
 			"    \"Print to console\": {",
-			"        \"prefix\": \"log\",",
+			"        \"prefix\": \"logToConsole\",",
 			"        \"body\": [",
 			"            \"console.log('$1');\"",
 			"        ],",
@@ -14,8 +14,8 @@
 		],
 		"description": "Snippet for demonstrating snippets"
 	},
-	"demo01.2": {
-		"prefix": "demo01.2",
+	"demo2": {
+		"prefix": "demo2",
 		"body": [
 			"\"contributes\": {",
 			"    \"snippets\": [",
@@ -28,29 +28,8 @@
 		],
 		"description": "Add snippet contributes configuration to package.json"
 	},
-	"demo02.1": {
-		"prefix": "demo02.1",
-		"body": [
-			"\"commands\": [",
-			"    {",
-			"        \"command\": \"extension.sayHello\",",
-			"        \"title\": \"Hello World\"",
-			"    }",
-			"],"
-		],
-		"description": "Contributes a custom command to the package.json file"
-	},
-	"demo03.1": {
-		"prefix": "demo03.1",
-		"body": [
-			"\"activationEvents\": [",
-			"    \"*\"",
-			"]"
-		],
-		"description": "Add activation events for everything"
-	},
-	"demo03.2": {
-		"prefix": "demo03.2",
+	"demo04": {
+		"prefix": "demo04",
 		"body": [
 			"{",
 			"    \"command\": \"meta.slowProcess\",",
