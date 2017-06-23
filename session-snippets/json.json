@@ -17,19 +17,17 @@
 	"demo2": {
 		"prefix": "demo2",
 		"body": [
-			"\"contributes\": {",
-			"    \"snippets\": [",
-			"        {",
-			"            \"language\": \"javascript\",",
-			"            \"path\": \"./snippets/console.json\"",
-			"        }",
-			"    ]",
-			"}"
+			"\"snippets\": [",
+			"	{",
+			"       \"language\": \"javascript\",",
+			"		\"path\": \"./snippets/console.json\"",
+			"	}",
+			"]"
 		],
 		"description": "Add snippet contributes configuration to package.json"
 	},
-	"demo04": {
-		"prefix": "demo04",
+	"demo4": {
+		"prefix": "demo4",
 		"body": [
 			"{",
 			"    \"command\": \"meta.slowProcess\",",

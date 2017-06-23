@@ -26,7 +26,7 @@
     "demo6": {
         "prefix": "demo6",
         "body": [
-            "        var outputChannel = vscode.window.createOutputChannel(outputChannelName);",
+            "        var outputChannel = vscode.window.createOutputChannel(\"META\");",
             "        outputChannel.show(false);",
             "        outputChannel.appendLine('Starting the slow process...');",
             "",
@@ -131,8 +131,7 @@
             "        backgroundColor: '#2572E5',",
             "        color: 'white',",
             "        cursor: 'pointer'",
-            "    });",
-            "}",
+            "    });"
             "var timeout = null;",
             "var activeEditor = vscode.window.activeTextEditor;",
             "",
@@ -181,7 +180,8 @@
             "    if (activeEditor && event.document === activeEditor.document) {",
             "        triggerUpdateDecorations();",
             "    }",
-            "}, null, context.subscriptions);"
+            "}, null, context.subscriptions);",
+            "}",
         ],
         "description": "Create the decoration style"
     },
